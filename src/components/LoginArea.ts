@@ -1,0 +1,60 @@
+import { defineComponent, h, ref } from 'vue-demi'
+
+// unknown bug
+import type { DefineComponent } from 'vue-demi'
+import { encodeLoginParams } from '../utils'
+
+export const LoginArea: DefineComponent = defineComponent({
+  setup() {
+    const account = ref('')
+    const password = ref('')
+
+    const handleAccountInput = (e: InputEvent) => {
+      account.value = (e.target as HTMLInputElement).value
+    }
+
+    const handlePasswordInput = (e: InputEvent) => {
+      password.value = (e.target as HTMLInputElement).value
+    }
+
+    const handleLogin = () => {
+      return fetch(`/api/admin/account/login_key?params=${Math.random()}`)
+        .then(res => res.json())
+        .then((result) => {
+          const key = result.data.publicKey
+          const cryptogram = encodeLoginParams(key, [account.value, password.value])
+          fetch('/api/admin/account/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ mode: 'Password', key, cryptogram }),
+            credentials: 'omit',
+          })
+            .then(res => res.json())
+            .then((result) => {
+              const { accessToken, refreshToken, xAccessToken = '' } = result.data
+              console.log(accessToken, refreshToken, xAccessToken)
+            })
+        })
+    }
+
+    return {
+      handleAccountInput,
+      handlePasswordInput,
+      handleLogin,
+      account,
+      password,
+    }
+  },
+  render() {
+    return h(
+      'div',
+      { class: 'dev-login-form__container' },
+      [
+        h('input', { onInput: this.handleAccountInput, placeholder: '请输入账号' }),
+        h('input', { onInput: this.handlePasswordInput, type: 'password', placeholder: '请输入密码' }),
+        h('button', { onClick: this.handleLogin }, '登录'),
+      ])
+  },
+})
