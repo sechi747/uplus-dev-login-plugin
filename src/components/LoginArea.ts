@@ -2,10 +2,10 @@ import { defineComponent, h, ref } from 'vue-demi'
 
 // unknown bug
 import type { DefineComponent } from 'vue-demi'
-import { encodeLoginParams } from '../utils'
+import { encodeLoginParams, setAuthToken } from '../utils'
 
 export const LoginArea: DefineComponent = defineComponent({
-  setup() {
+  setup(_, { emit }) {
     const account = ref('')
     const password = ref('')
 
@@ -33,8 +33,13 @@ export const LoginArea: DefineComponent = defineComponent({
           })
             .then(res => res.json())
             .then((result) => {
-              const { accessToken, refreshToken, xAccessToken = '' } = result.data
-              console.log(accessToken, refreshToken, xAccessToken)
+              const tokens = {
+                token: result.data.accessToken,
+                refreshToken: result.data.refreshToken,
+                xAccessToken: result.data['X-Access-Token'],
+              }
+              setAuthToken(tokens)
+              emit('afterLogin')
             })
         })
     }

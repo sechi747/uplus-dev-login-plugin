@@ -2,39 +2,40 @@ import { defineComponent, h, onMounted, ref } from 'vue-demi'
 
 // unknown bug
 import type { DefineComponent } from 'vue-demi'
+import { getAuthToken } from '../utils'
+import { LoginArea } from './LoginArea'
 
 export const SimulateLoginPlugin: DefineComponent = defineComponent({
   props: {
-    content: {
-      type: String,
-    },
   },
   setup(props, { slots }) {
-    const count = ref(1)
+    const { xAccessToken } = getAuthToken()
 
-    const handleClick = () => {
-      count.value++
-      console.log('clickOnce')
+    const showLoginArea = ref(true)
+
+    const hideLoginArea = () => {
+      showLoginArea.value = false
     }
 
-    onMounted(() => console.log('onMounted'))
+    onMounted(() => {
+      if (typeof xAccessToken === 'string')
+        hideLoginArea()
+    })
 
     return {
-      handleClick,
-      count,
       slots,
       props,
+      showLoginArea,
+      hideLoginArea,
     }
   },
   render() {
-    console.log(this.slots)
     const group = []
-    for (let i = 0; i < this.count; i++) {
-      group.push(h('div', [
-        h('span', {}, this.slots.default ? this.slots.default() : this.props.content),
-      ]))
-    }
+    if (this.showLoginArea)
+      group.push(h(LoginArea, { onAfterLogin: this.hideLoginArea }))
+    else
+      group.push(h('div', null, 'Hello'))
 
-    return h('div', { onClick: this.handleClick }, group)
+    return h('div', null, group)
   },
 })

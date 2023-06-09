@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // import TestCom from '../../src/index'
-import { LoginArea, SimulateLoginPlugin } from 'dev-login-plugin'
+import { SimulateLoginPlugin } from 'dev-login-plugin'
 import 'dev-login-plugin/index.css'
 </script>
 
@@ -13,12 +13,7 @@ import 'dev-login-plugin/index.css'
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo">
     </a>
   </div>
-  <SimulateLoginPlugin content="abc">
-    <template #default>
-      <span>hello world</span>
-    </template>
-  </SimulateLoginPlugin>
-  <LoginArea />
+  <SimulateLoginPlugin />
 </template>
 
 <style scoped>
