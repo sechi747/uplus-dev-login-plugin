@@ -1,40 +1,32 @@
-import { defineComponent, h, onMounted, ref } from 'vue-demi'
+import { defineComponent, h, ref } from 'vue-demi'
 
 // unknown bug
 import type { DefineComponent } from 'vue-demi'
 
-export const SimulateLoginPlugin: DefineComponent = defineComponent({
-  props: {
-    content: {
-      type: String,
-    },
-  },
+export const SearchArea: DefineComponent = defineComponent({
   setup(props, { slots }) {
-    const count = ref(1)
+    const keyword = ref('')
 
-    const handleClick = () => {
-      count.value++
-      console.log('clickOnce')
+    const handleInput = (e: InputEvent) => {
+      keyword.value = (e.target as HTMLInputElement).value
     }
 
-    onMounted(() => console.log('onMounted'))
+    const handleSearch = () => {
+      console.log('search:::', keyword.value)
+    }
 
     return {
-      handleClick,
-      count,
+      handleInput,
+      handleSearch,
       slots,
       props,
     }
   },
   render() {
-    console.log(this.slots)
-    const group = []
-    for (let i = 0; i < this.count; i++) {
-      group.push(h('div', [
-        h('span', {}, this.slots.default ? this.slots.default() : this.props.content),
-      ]))
-    }
-
-    return h('div', { onClick: this.handleClick }, group)
+    return h('div', { class: 'dev-search-area__header' },
+      [
+        h('input', { onInput: this.handleInput, placeholder: '请输入关键字' }),
+        h('button', { onClick: this.handleSearch }, '查询'),
+      ])
   },
 })

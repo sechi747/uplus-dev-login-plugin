@@ -4,6 +4,7 @@ import { defineComponent, h, onMounted, ref } from 'vue-demi'
 import type { DefineComponent } from 'vue-demi'
 import { getAuthToken } from '../utils'
 import { LoginArea } from './LoginArea'
+import { SearchArea } from './SearchArea'
 
 export const SimulateLoginPlugin: DefineComponent = defineComponent({
   props: {
@@ -18,6 +19,7 @@ export const SimulateLoginPlugin: DefineComponent = defineComponent({
     }
 
     onMounted(() => {
+      console.log('')
       if (typeof xAccessToken === 'string')
         hideLoginArea()
     })
@@ -34,7 +36,7 @@ export const SimulateLoginPlugin: DefineComponent = defineComponent({
     if (this.showLoginArea)
       group.push(h(LoginArea, { onAfterLogin: this.hideLoginArea }))
     else
-      group.push(h('div', null, 'Hello'))
+      group.push(h('div', { class: 'dev-search-area__container' }, h(SearchArea)))
 
     return h('div', null, group)
   },

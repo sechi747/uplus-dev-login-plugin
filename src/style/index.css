@@ -4,3 +4,24 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.dev-search-area__container {
+  width: 450px;
+  padding: 16px 16px;
+  border: 1px solid #7f8c8d;
+  display: flex;
+  flex-direction: column;
+}
+
+.dev-search-area__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dev-search-area__header input {
+  width: 250px;
+}
+
+.dev-search-area__header button {
+  width: 80px;
+}
