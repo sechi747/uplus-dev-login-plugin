@@ -2,9 +2,11 @@ import { defineComponent, h, ref } from 'vue-demi'
 
 // unknown bug
 import type { DefineComponent } from 'vue-demi'
+import { getAuthToken } from '../utils'
 
 export const SearchArea: DefineComponent = defineComponent({
-  setup(props, { slots }) {
+  setup(props, { slots, emit }) {
+    const { token, xAccessToken } = getAuthToken()
     const keyword = ref('')
 
     const handleInput = (e: InputEvent) => {
@@ -12,7 +14,18 @@ export const SearchArea: DefineComponent = defineComponent({
     }
 
     const handleSearch = () => {
-      console.log('search:::', keyword.value)
+      return fetch(`/api/admin/v1/members?pageSize=50&pageNumber=1&multiSearchParam=${keyword.value}`, {
+        method: 'GET',
+        headers: {
+          'Authentication': token,
+          'X-Access-Token': xAccessToken,
+        },
+        credentials: 'omit',
+      })
+        .then(res => res.json())
+        .then((result) => {
+          emit('search', result.data)
+        })
     }
 
     return {
