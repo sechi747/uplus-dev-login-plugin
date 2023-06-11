@@ -20,7 +20,7 @@ export const UsersArea: DefineComponent = defineComponent({
   render() {
     const group = []
     this.props.userList.forEach((user) => {
-      group.push(h('div', {class: 'dev-users-area__item'},
+      group.push(h('div', { class: 'dev-users-area__item' },
         [
           h('span', null, `${user.account} || ${user.name}`),
           h('button', null, '模拟登录'),

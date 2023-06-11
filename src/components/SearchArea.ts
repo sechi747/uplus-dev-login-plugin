@@ -3,6 +3,7 @@ import { defineComponent, h, ref } from 'vue-demi'
 // unknown bug
 import type { DefineComponent } from 'vue-demi'
 import { getAuthToken } from '../utils'
+import type { UserModal } from '../types'
 
 export const SearchArea: DefineComponent = defineComponent({
   setup(props, { slots, emit }) {
@@ -24,7 +25,7 @@ export const SearchArea: DefineComponent = defineComponent({
       })
         .then(res => res.json())
         .then((result) => {
-          emit('search', result.data)
+          emit('search', result.data as UserModal[])
         })
     }
 

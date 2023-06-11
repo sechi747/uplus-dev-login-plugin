@@ -3,6 +3,7 @@ import { defineComponent, h, onMounted, ref } from 'vue-demi'
 // unknown bug
 import type { DefineComponent } from 'vue-demi'
 import { getAuthToken } from '../utils'
+import type { UserModal } from '../types'
 import { LoginArea } from './LoginArea'
 import { SearchArea } from './SearchArea'
 import { UsersArea } from './UsersArea'
@@ -14,13 +15,13 @@ export const SimulateLoginPlugin: DefineComponent = defineComponent({
     const { xAccessToken } = getAuthToken()
 
     const showLoginArea = ref(true)
-    const userList = ref([])
+    const userList = ref<UserModal[]>([])
 
     const hideLoginArea = () => {
       showLoginArea.value = false
     }
 
-    const setUserList = (val: any) => {
+    const setUserList = (val: UserModal[]) => {
       userList.value = val
     }
 
