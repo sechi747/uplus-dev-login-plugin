@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // import TestCom from '../../src/index'
-import { SimulateLoginPlugin } from 'dev-login-plugin'
-import 'dev-login-plugin/index.css'
+import { SimulateLoginPlugin } from '@itshixun/dev-login-plugin'
+import '@itshixun/dev-login-plugin/index.css'
 </script>
 
 <template>

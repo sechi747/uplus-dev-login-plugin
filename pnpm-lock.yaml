@@ -23,14 +23,14 @@ importers:
 
   playground:
     specifiers:
+      '@itshixun/dev-login-plugin': workspace:*
       '@vitejs/plugin-vue': ^4.1.0
-      dev-login-plugin: workspace:*
       typescript: ^5.0.2
       vite: ^4.3.9
       vue: ^3.2.47
       vue-tsc: ^1.4.2
     dependencies:
-      dev-login-plugin: link:..
+      '@itshixun/dev-login-plugin': link:..
       vue: 3.3.4
     devDependencies:
       '@vitejs/plugin-vue': 4.2.3_vite@4.3.9+vue@3.3.4

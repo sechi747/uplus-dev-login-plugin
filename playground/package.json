@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "vue": "^3.2.47",
-    "dev-login-plugin": "workspace:*"
+    "@itshixun/dev-login-plugin": "workspace:*"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
