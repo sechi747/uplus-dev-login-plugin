@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "build": "pnpm unbuild",
+    "dev": "cd ./playground && pnpm dev",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
