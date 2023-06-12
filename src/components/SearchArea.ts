@@ -1,11 +1,8 @@
 import { defineComponent, h, ref } from 'vue-demi'
-
-// unknown bug
-import type { DefineComponent } from 'vue-demi'
 import { getAuthToken } from '../utils'
 import type { UserModal } from '../types'
 
-export const SearchArea: DefineComponent = defineComponent({
+export const SearchArea: Object = defineComponent({
   setup(props, { slots, emit }) {
     const { token, xAccessToken } = getAuthToken()
     const keyword = ref('')
@@ -18,8 +15,8 @@ export const SearchArea: DefineComponent = defineComponent({
       return fetch(`/api/admin/v1/members?pageSize=50&pageNumber=1&multiSearchParam=${keyword.value}`, {
         method: 'GET',
         headers: {
-          'Authentication': token,
-          'X-Access-Token': xAccessToken,
+          'Authentication': token as string,
+          'X-Access-Token': xAccessToken as string,
         },
         credentials: 'omit',
       })

@@ -1,10 +1,7 @@
 import { defineComponent, h, ref } from 'vue-demi'
-
-// unknown bug
-import type { DefineComponent } from 'vue-demi'
 import { encodeLoginParams, setAuthToken } from '../utils'
 
-export const LoginArea: DefineComponent = defineComponent({
+export const LoginArea: Object = defineComponent({
   setup(_, { emit }) {
     const account = ref('')
     const password = ref('')
