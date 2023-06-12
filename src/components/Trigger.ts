@@ -4,6 +4,7 @@ import { Dialog } from './Dialog'
 import { SimulateLoginPlugin } from './Container'
 
 export const Trigger: Object = defineComponent({
+  name: 'Trigger',
   setup(props, { slots }) {
     const dialogRef = ref<HTMLDialogElement | null>(null)
 
