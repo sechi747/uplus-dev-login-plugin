@@ -13,11 +13,11 @@ export const Trigger: Object = defineComponent({
     })
 
     const showDialog = () => {
-      dialogRef.value?.showModal()
+      dialogRef.value!.showModal()
     }
 
     const closeDialog = () => {
-      dialogRef.value?.close()
+      dialogRef.value!.close()
     }
 
     return {
