@@ -1,6 +1,5 @@
 <script setup lang="ts">
-// import TestCom from '../../src/index'
-import { SimulateLoginPlugin } from 'uplus-dev-login-plugin'
+import { Trigger } from 'uplus-dev-login-plugin'
 import 'uplus-dev-login-plugin/index.css'
 </script>
 
@@ -13,7 +12,7 @@ import 'uplus-dev-login-plugin/index.css'
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo">
     </a>
   </div>
-  <SimulateLoginPlugin />
+  <Trigger />
 </template>
 
 <style scoped>

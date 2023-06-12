@@ -1,3 +1,4 @@
+import { Trigger } from './components/Trigger'
 import { SimulateLoginPlugin } from './components/Container'
 
-export { SimulateLoginPlugin }
+export { SimulateLoginPlugin, Trigger }

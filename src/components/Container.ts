@@ -39,19 +39,17 @@ export const SimulateLoginPlugin: Object = defineComponent({
   render() {
     const group = []
     if (this.showLoginArea) {
-      group.push(h('div', { class: 'dev-search-area__container' },
+      group.push(
         h(LoginArea, transformVNodeProps({ onAfterLogin: this.hideLoginArea })),
-      ))
+      )
     }
     else {
-      group.push(h('div', { class: 'dev-search-area__container' },
-        [
-          h(SearchArea, transformVNodeProps({ onSearch: this.setUserList })),
-          h(UsersArea, transformVNodeProps({}, { userList: this.userList })),
-        ],
-      ))
+      group.push(
+        h(SearchArea, transformVNodeProps({ onSearch: this.setUserList })),
+        h(UsersArea, transformVNodeProps({}, { userList: this.userList })),
+      )
     }
 
-    return h('div', null, group)
+    return h('div', { class: 'dev-search-area__container' }, group)
   },
 })
