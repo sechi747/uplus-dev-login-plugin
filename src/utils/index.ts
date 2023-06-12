@@ -1,9 +1,7 @@
 import Jsencrypt from 'jsencrypt'
 import { isVue2 } from 'vue-demi'
-import { AUTH_TOKEN_KEYS } from '../const'
+import { ATTR_NAMES, AUTH_TOKEN_KEYS } from '../const'
 import type { AuthTokens } from '../types'
-
-const ATTR_NAMES = ['src', 'type', 'id', 'placeholder']
 
 /**
  * 登录参数加密
