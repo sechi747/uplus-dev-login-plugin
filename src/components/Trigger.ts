@@ -32,7 +32,7 @@ export const Trigger: Object = defineComponent({
         h(
           'div',
           transformVNodeProps({ class: 'dev-login-trigger', onClick: this.showDialog }),
-          h('div', { class: 'dev-login-profile-icon' }),
+          h('div', { class: 'dev-login-profile-icon' }, ''),
         ),
         h(
           Dialog,
