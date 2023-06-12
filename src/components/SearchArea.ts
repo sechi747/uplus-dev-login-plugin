@@ -1,5 +1,5 @@
 import { defineComponent, h, ref } from 'vue-demi'
-import { getAuthToken } from '../utils'
+import { getAuthToken, transformVNodeProps } from '../utils'
 import type { UserModal } from '../types'
 
 export const SearchArea: Object = defineComponent({
@@ -36,8 +36,8 @@ export const SearchArea: Object = defineComponent({
   render() {
     return h('div', { class: 'dev-search-area__header' },
       [
-        h('input', { onInput: this.handleInput, placeholder: '请输入关键字' }),
-        h('button', { onClick: this.handleSearch }, '查询'),
+        h('input', transformVNodeProps({ onInput: this.handleInput, placeholder: '请输入关键字' })),
+        h('button', transformVNodeProps({ onClick: this.handleSearch }), '查询'),
       ])
   },
 })

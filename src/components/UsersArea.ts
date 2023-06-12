@@ -1,7 +1,7 @@
 import { defineComponent, h } from 'vue-demi'
 import type { VNode } from 'vue-demi'
 import type { UserModal } from '../types'
-import { getAuthToken } from '../utils'
+import { getAuthToken, transformVNodeProps } from '../utils'
 
 export const UsersArea: Object = defineComponent({
   props: {
@@ -46,7 +46,7 @@ export const UsersArea: Object = defineComponent({
         h('div', { class: 'dev-users-area__item' },
           [
             h('span', null, `${user.account} || ${user.name}`),
-            h('button', { onClick: () => this.simulateLogin(user) }, '模拟登录'),
+            h('button', transformVNodeProps({ onClick: () => this.simulateLogin(user) }), '模拟登录'),
           ],
         ))
     })

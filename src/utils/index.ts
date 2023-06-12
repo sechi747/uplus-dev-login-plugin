@@ -1,6 +1,9 @@
 import Jsencrypt from 'jsencrypt'
+import { isVue2 } from 'vue-demi'
 import { AUTH_TOKEN_KEYS } from '../const'
 import type { AuthTokens } from '../types'
+
+const ATTR_NAMES = ['src', 'type', 'id', 'placeholder']
 
 /**
  * 登录参数加密
@@ -23,4 +26,36 @@ export function getAuthToken() {
     tokens[key] = localStorage.getItem(`dev-login-${key}`)
   })
   return tokens
+}
+
+export function transformVNodeProps(properties: Record<string, any>, propsObj?: Record<string, any>) {
+  if (!isVue2)
+    return { ...properties, ...propsObj }
+  const on: Record<string, any> = {}
+  const attrs: Record<string, string> = {}
+  const props: Record<string, any> = {}
+
+  Object.keys(properties)
+    .filter(event => /^on[A-Z]/.test(event))
+    .forEach((event) => {
+      const eventName = event[2].toLowerCase() + event.substring(3)
+      on[eventName] = properties[event]
+    })
+  properties.on = Object.assign({}, on, properties.on || {})
+
+  ATTR_NAMES
+    .filter(name => properties[name] !== undefined)
+    .forEach((name) => {
+      attrs[name] = properties[name]
+    })
+  properties.attrs = Object.assign({}, attrs, properties.attrs || {})
+
+  if (propsObj !== undefined) {
+    Object.keys(propsObj).forEach((key) => {
+      props[key] = propsObj[key]
+    })
+    properties.props = Object.assign({}, props, propsObj || {})
+  }
+
+  return properties
 }

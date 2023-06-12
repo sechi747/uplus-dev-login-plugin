@@ -1,5 +1,5 @@
 import { defineComponent, h, ref } from 'vue-demi'
-import { encodeLoginParams, setAuthToken } from '../utils'
+import { encodeLoginParams, setAuthToken, transformVNodeProps } from '../utils'
 
 export const LoginArea: Object = defineComponent({
   setup(_, { emit }) {
@@ -54,9 +54,9 @@ export const LoginArea: Object = defineComponent({
       'div',
       { class: 'dev-login-form__container' },
       [
-        h('input', { onInput: this.handleAccountInput, placeholder: '请输入账号' }),
-        h('input', { onInput: this.handlePasswordInput, type: 'password', placeholder: '请输入密码' }),
-        h('button', { onClick: this.handleLogin }, '登录'),
+        h('input', transformVNodeProps({ onInput: this.handleAccountInput, placeholder: '请输入账号' })),
+        h('input', transformVNodeProps({ onInput: this.handlePasswordInput, type: 'password', placeholder: '请输入密码' })),
+        h('button', transformVNodeProps({ onClick: this.handleLogin }), '登录'),
       ])
   },
 })
