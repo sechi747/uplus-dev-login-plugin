@@ -20,7 +20,7 @@ export const Dialog: Object = defineComponent({
       transformVNodeProps({ class: 'dev-login-dialog' }),
       [
         h('div', { class: 'dev-login-dialog__header' },
-          h('span', transformVNodeProps({ onClick: this.handleClose, style: { cursor: 'pointer' } }), 'X'),
+          h('div', transformVNodeProps({ onClick: this.handleClose, class: 'dev-login-close-icon', style: { cursor: 'pointer' } })),
         ),
         h(SimulateLoginPlugin),
       ],
