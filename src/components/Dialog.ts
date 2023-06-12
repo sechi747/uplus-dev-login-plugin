@@ -19,7 +19,7 @@ export const Dialog: Object = defineComponent({
       transformVNodeProps({ class: 'dev-login-dialog' }),
       [
         h('div', { class: 'dev-login-dialog__header' },
-          h('span', transformVNodeProps({ onClick: this.handleClose, style: 'cursor: pointer;' }), '✖'),
+          h('span', transformVNodeProps({ onClick: this.handleClose, style: { cursor: 'pointer' } }), '✖'),
         ),
         transformVNodeSlots(this.slots),
       ],

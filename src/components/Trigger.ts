@@ -37,7 +37,7 @@ export const Trigger: Object = defineComponent({
         ),
         h(
           Dialog,
-          { onClose: this.closeDialog },
+          transformVNodeProps({ onClose: this.closeDialog, slot: 'default' }),
           h(SimulateLoginPlugin),
         ),
       ])
