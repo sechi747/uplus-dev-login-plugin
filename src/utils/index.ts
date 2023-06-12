@@ -57,10 +57,3 @@ export function transformVNodeProps(properties: Record<string, any>, propsObj?: 
 
   return properties
 }
-
-export function transformVNodeSlots(slots: Record<string, any>, name = 'default') {
-  if (!isVue2)
-    return slots[name]()
-  else
-    return slots[name]
-}

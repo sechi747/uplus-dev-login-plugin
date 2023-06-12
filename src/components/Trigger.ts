@@ -1,7 +1,6 @@
 import { defineComponent, h, onMounted, ref } from 'vue-demi'
 import { transformVNodeProps } from '../utils'
 import { Dialog } from './Dialog'
-import { SimulateLoginPlugin } from './Container'
 
 export const Trigger: Object = defineComponent({
   name: 'Trigger',
@@ -37,8 +36,7 @@ export const Trigger: Object = defineComponent({
         ),
         h(
           Dialog,
-          transformVNodeProps({ onClose: this.closeDialog, slot: 'default' }),
-          h(SimulateLoginPlugin),
+          transformVNodeProps({ onClose: this.closeDialog }),
         ),
       ])
   },
