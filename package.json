@@ -14,15 +14,13 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": "./dist/index.mjs"
     },
     "./index.css": {
-      "import": "./dist/index.css",
-      "require": "./dist/index.css"
+      "import": "./dist/index.css"
     }
   },
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
