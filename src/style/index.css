@@ -5,7 +5,6 @@
   border-radius: .5em;
   box-shadow: none;
   display: inline-flex;
-  height: 1.5em;
   position: relative;
   vertical-align: top;
   user-select: none;
@@ -30,9 +29,8 @@
   align-items: center;
   border: 1px solid transparent;
   display: inline-flex;
-  height: 1.5em;
   justify-content: flex-start;
-  line-height: 1.5;
+  line-height: 1.5em;
   padding-bottom: calc(.5em - 1px);
   padding-left: calc(.75em - 1px);
   padding-right: calc(.75em - 1px);
