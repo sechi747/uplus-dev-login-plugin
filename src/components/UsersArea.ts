@@ -1,6 +1,7 @@
 import { defineComponent, h } from 'vue-demi'
 import type { VNode } from 'vue-demi'
 import type { UserModal } from '../types'
+import { getAuthToken } from '../utils'
 
 export const UsersArea: Object = defineComponent({
   props: {
@@ -11,9 +12,31 @@ export const UsersArea: Object = defineComponent({
   },
 
   setup(props, { slots }) {
+    const { token, xAccessToken } = getAuthToken()
+
+    // 模拟登录前先使用真实memberId获取一个mock memberId
+    const getMockMemberId = (memberId: string) => {
+      return fetch(`/api/auth/session/simulation_login/before?memberId=${memberId}`, {
+        method: 'GET',
+        headers: {
+          'Authentication': token as string,
+          'X-Access-Token': xAccessToken as string,
+        },
+        credentials: 'omit',
+      })
+        .then(res => res.json())
+        .then(result => result.data.memberId)
+    }
+
+    const simulateLogin = async (user: UserModal) => {
+      const mockMemberId = await getMockMemberId(user.id)
+      window.open(`/simulatedLoginBridge?memberId=${mockMemberId}`)
+    }
+
     return {
       slots,
       props,
+      simulateLogin,
     }
   },
   render() {
@@ -23,7 +46,7 @@ export const UsersArea: Object = defineComponent({
         h('div', { class: 'dev-users-area__item' },
           [
             h('span', null, `${user.account} || ${user.name}`),
-            h('button', null, '模拟登录'),
+            h('button', { onClick: () => this.simulateLogin(user) }, '模拟登录'),
           ],
         ))
     })
