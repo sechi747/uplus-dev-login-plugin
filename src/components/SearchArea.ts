@@ -36,8 +36,8 @@ export const SearchArea: Object = defineComponent({
   render() {
     return h('div', { class: 'dev-search-area__header' },
       [
-        h('input', transformVNodeProps({ onInput: this.handleInput, placeholder: '请输入关键字' })),
-        h('button', transformVNodeProps({ onClick: this.handleSearch }), '查询'),
+        h('input', transformVNodeProps({ onInput: this.handleInput, placeholder: '请输入关键字', class: 'dev-login-input' })),
+        h('button', transformVNodeProps({ onClick: this.handleSearch, class: 'dev-login-button' }), '查询'),
       ])
   },
 })

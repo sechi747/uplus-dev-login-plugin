@@ -54,9 +54,9 @@ export const LoginArea: Object = defineComponent({
       'div',
       { class: 'dev-login-form__container' },
       [
-        h('input', transformVNodeProps({ onInput: this.handleAccountInput, placeholder: '请输入账号' })),
-        h('input', transformVNodeProps({ onInput: this.handlePasswordInput, type: 'password', placeholder: '请输入密码' })),
-        h('button', transformVNodeProps({ onClick: this.handleLogin }), '登录'),
+        h('input', transformVNodeProps({ onInput: this.handleAccountInput, placeholder: '请输入账号', class: 'dev-login-input' })),
+        h('input', transformVNodeProps({ onInput: this.handlePasswordInput, type: 'password', placeholder: '请输入密码', class: 'dev-login-input' })),
+        h('button', transformVNodeProps({ onClick: this.handleLogin, class: 'dev-login-button' }), '登录'),
       ])
   },
 })
