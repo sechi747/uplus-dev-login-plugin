@@ -167,13 +167,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(233, 236, 239, 0.5);
+  background-color: #fff;
   cursor: pointer;
-  z-index: 10px
+  z-index: 10;
+  box-shadow: 0 0 4px 4px rgba(0,0,0,.05);
 }
 
 .dev-login-trigger:hover {
-  background-color: rgba(233, 236, 239, 0.75);
+  background-color: #fafafa;
 }
 
 .dev-login-profile-icon {
