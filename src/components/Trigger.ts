@@ -1,20 +1,26 @@
-import { defineComponent, h, onMounted, ref } from 'vue-demi'
+import { defineComponent, h, onMounted, provide, ref } from 'vue-demi'
 import { transformVNodeProps } from '../utils'
 import { Dialog } from './Dialog'
 import { SimulateLoginPlugin } from './Container'
 
 export const Trigger: Object = defineComponent({
   name: 'Trigger',
+  props: {
+    basePath: {
+      type: String,
+      default: '/',
+    },
+  },
   setup(props, { slots }) {
     const dialogRef = ref<HTMLDialogElement | null>(null)
+
+    provide('basePath', props.basePath)
 
     onMounted(() => {
       dialogRef.value = document.getElementsByClassName('dev-login-dialog')[0] as HTMLDialogElement
     })
 
     const showDialog = () => {
-      console.log('aaaaaaa', dialogRef.value)
-
       dialogRef.value!.showModal()
     }
 

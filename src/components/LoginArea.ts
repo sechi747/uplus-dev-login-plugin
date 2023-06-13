@@ -15,7 +15,7 @@ export const LoginArea: Object = defineComponent({
     }
 
     const handleLogin = () => {
-      return fetch(`/api/admin/account/login_key?params=${Math.random()}`)
+      return fetch(`/api/admin/account/login_key?params=${Math.random()}`, { credentials: 'omit' })
         .then(res => res.json())
         .then((result) => {
           const key = result.data.publicKey

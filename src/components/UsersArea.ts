@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue-demi'
+import { defineComponent, h, inject } from 'vue-demi'
 import type { VNode } from 'vue-demi'
 import type { UserModal } from '../types'
 import { getAuthToken, transformVNodeProps } from '../utils'
@@ -13,6 +13,8 @@ export const UsersArea: Object = defineComponent({
 
   setup(props, { slots }) {
     const { token, xAccessToken } = getAuthToken()
+
+    const basePath = inject('basePath')
 
     // 模拟登录前先使用真实memberId获取一个mock memberId
     const getMockMemberId = (memberId: string) => {
@@ -30,7 +32,7 @@ export const UsersArea: Object = defineComponent({
 
     const simulateLogin = async (user: UserModal) => {
       const mockMemberId = await getMockMemberId(user.id)
-      window.open(`/simulatedLoginBridge?memberId=${mockMemberId}`)
+      window.location.href = (`${window.location.origin}${basePath}simulatedLoginBridge?memberId=${mockMemberId}`)
     }
 
     return {
