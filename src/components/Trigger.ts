@@ -12,6 +12,8 @@ export const Trigger: Object = defineComponent({
     })
 
     const showDialog = () => {
+      console.log('aaaaaaa', dialogRef.value)
+
       dialogRef.value!.showModal()
     }
 
@@ -32,7 +34,7 @@ export const Trigger: Object = defineComponent({
         h(
           'div',
           transformVNodeProps({ class: 'dev-login-trigger', onClick: this.showDialog }),
-          h('div', { class: 'dev-login-profile-icon' }, ''),
+          [h('div', { class: 'dev-login-profile-icon' })],
         ),
         h(
           Dialog,
