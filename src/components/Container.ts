@@ -1,5 +1,5 @@
 import { defineComponent, h, onMounted, ref } from 'vue-demi'
-import { getAuthToken, transformVNodeProps } from '../utils'
+import { clearAuthToken, getAuthToken, transformVNodeProps } from '../utils'
 import type { UserModal } from '../types'
 import { LoginArea } from './LoginArea'
 import { SearchArea } from './SearchArea'
@@ -8,10 +8,15 @@ import { UsersArea } from './UsersArea'
 export const SimulateLoginPlugin: Object = defineComponent({
   name: 'SimulateLoginPlugin',
   setup(props, { slots }) {
-    const { xAccessToken } = getAuthToken()
+    const { accessToken } = getAuthToken()
 
     const showLoginArea = ref(true)
     const userList = ref<UserModal[]>([])
+
+    const reLogin = () => {
+      clearAuthToken()
+      showLoginArea.value = true
+    }
 
     const hideLoginArea = () => {
       showLoginArea.value = false
@@ -22,8 +27,7 @@ export const SimulateLoginPlugin: Object = defineComponent({
     }
 
     onMounted(() => {
-      console.log('')
-      if (typeof xAccessToken === 'string')
+      if (typeof accessToken === 'string')
         hideLoginArea()
     })
 
@@ -34,18 +38,19 @@ export const SimulateLoginPlugin: Object = defineComponent({
       userList,
       hideLoginArea,
       setUserList,
+      reLogin,
     }
   },
   render() {
     const group = []
     if (this.showLoginArea) {
       group.push(
-        h(LoginArea, transformVNodeProps({ onAfterLogin: this.hideLoginArea })),
+        h(LoginArea, transformVNodeProps({ onLoginSuccess: this.hideLoginArea })),
       )
     }
     else {
       group.push(
-        h(SearchArea, transformVNodeProps({ onSearch: this.setUserList })),
+        h(SearchArea, transformVNodeProps({ onSearch: this.setUserList, onAuthExp: this.reLogin })),
         h(UsersArea, transformVNodeProps({}, { userList: this.userList })),
       )
     }

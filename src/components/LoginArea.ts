@@ -35,13 +35,8 @@ export const LoginArea: Object = defineComponent({
                 errorMessage.value = result.message
               }
               else {
-                const tokens = {
-                  token: result.data.accessToken,
-                  refreshToken: result.data.refreshToken,
-                  xAccessToken: result.data['X-Access-Token'],
-                }
-                setAuthToken(tokens)
-                emit('afterLogin')
+                setAuthToken(result.data)
+                emit('loginSuccess')
                 errorMessage.value = ''
               }
             })

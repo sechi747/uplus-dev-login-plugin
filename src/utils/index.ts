@@ -26,6 +26,12 @@ export function getAuthToken() {
   return tokens
 }
 
+export function clearAuthToken() {
+  AUTH_TOKEN_KEYS.forEach((key) => {
+    localStorage.removeItem(`dev-login-${key}`)
+  })
+}
+
 export function transformVNodeProps(properties: Record<string, any>, propsObj?: Record<string, any>) {
   if (!isVue2)
     return { ...properties, ...propsObj }

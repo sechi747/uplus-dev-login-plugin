@@ -12,22 +12,23 @@ export const UsersArea: Object = defineComponent({
   },
 
   setup(props, { slots }) {
-    const { token, xAccessToken } = getAuthToken()
+    const { accessToken } = getAuthToken()
 
     const basePath = inject('basePath')
 
     // 模拟登录前先使用真实memberId获取一个mock memberId
     const getMockMemberId = (memberId: string) => {
-      return fetch(`/api/auth/session/simulation_login/before?memberId=${memberId}`, {
-        method: 'GET',
+      return fetch('/api/auth/login/checkup', {
+        method: 'POST',
         headers: {
-          'Authentication': token as string,
-          'X-Access-Token': xAccessToken as string,
+          'Authentication': accessToken as string,
+          'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ mode: 'Imitate', memberId }),
         credentials: 'omit',
       })
         .then(res => res.json())
-        .then(result => result.data.memberId)
+        .then(result => result.data.unrealMemberId)
     }
 
     const simulateLogin = async (user: UserModal) => {

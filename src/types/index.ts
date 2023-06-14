@@ -1,7 +1,6 @@
 export interface AuthTokens {
-  token: string | null
+  accessToken: string | null
   refreshToken: string | null
-  xAccessToken: string | null
 }
 
 export interface UserModal {

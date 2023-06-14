@@ -4,7 +4,7 @@ import type { UserModal } from '../types'
 
 export const SearchArea: Object = defineComponent({
   setup(props, { slots, emit }) {
-    const { token, xAccessToken } = getAuthToken()
+    const { accessToken } = getAuthToken()
     const keyword = ref('')
 
     const handleInput = (e: InputEvent) => {
@@ -15,15 +15,18 @@ export const SearchArea: Object = defineComponent({
       return fetch(`/api/admin/v1/members?pageSize=50&pageNumber=1&multiSearchParam=${keyword.value}`, {
         method: 'GET',
         headers: {
-          'Authentication': token as string,
-          'X-Access-Token': xAccessToken as string,
+          Authentication: accessToken as string,
         },
         credentials: 'omit',
       })
         .then(res => res.json())
         .then((result) => {
-          emit('search', result.data as UserModal[])
+          if (!result.success && result.status !== 200)
+            emit('authExp')
+          else
+            emit('search', result.data as UserModal[])
         })
+        .catch(() => emit('authExp'))
     }
 
     return {
