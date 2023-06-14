@@ -12,41 +12,76 @@ export const Trigger: Object = defineComponent({
     },
   },
   setup(props, { slots }) {
-    const dialogRef = ref<HTMLDialogElement | null>(null)
+    const mainRef = ref<HTMLDialogElement | null>(null)
+    const confirmRef = ref<HTMLDialogElement | null>(null)
+    const hideTrigger = ref(false)
 
     provide('basePath', props.basePath)
 
     onMounted(() => {
-      dialogRef.value = document.getElementsByClassName('dev-login-dialog')[0] as HTMLDialogElement
+      mainRef.value = document.getElementById('dev-main-modal') as HTMLDialogElement
+      confirmRef.value = document.getElementById('dev-confirm-modal') as HTMLDialogElement
+      hideTrigger.value = Boolean(window.sessionStorage.getItem('dev-login-hide-trigger'))
     })
 
-    const showDialog = () => {
-      dialogRef.value!.showModal()
+    const showMainDialog = () => {
+      mainRef.value!.showModal()
     }
 
-    const closeDialog = () => {
-      dialogRef.value!.close()
+    const showConfirmDialog = () => {
+      confirmRef.value!.showModal()
+    }
+
+    const closeMainDialog = () => {
+      mainRef.value!.close()
+    }
+
+    const closeConfirmDialog = () => {
+      confirmRef.value!.close()
+    }
+
+    const handleCancel = () => {
+      closeConfirmDialog()
+      closeMainDialog()
+    }
+
+    const handleConfirm = () => {
+      window.sessionStorage.setItem('dev-login-hide-trigger', 'true')
+      hideTrigger.value = true
+      handleCancel()
     }
 
     return {
       slots,
       props,
-      showDialog,
-      closeDialog,
+      hideTrigger,
+      showMainDialog,
+      showConfirmDialog,
+      closeMainDialog,
+      closeConfirmDialog,
+      handleConfirm,
+      handleCancel,
     }
   },
   render() {
+    if (this.hideTrigger)
+      return null
     return h('div', null,
       [
         h(
           'div',
-          transformVNodeProps({ class: 'dev-login-trigger', onClick: this.showDialog }),
+          transformVNodeProps({ class: 'dev-login-trigger', onClick: this.showMainDialog }),
           [h('div', { class: 'dev-login-profile-icon' })],
         ),
         h(
           Dialog,
-          transformVNodeProps({ onClose: this.closeDialog }),
+          transformVNodeProps({ id: 'dev-main-modal', onClose: this.showConfirmDialog }, { showFooterButtons: false }),
           [h(SimulateLoginPlugin)],
+        ),
+        h(
+          Dialog,
+          transformVNodeProps({ id: 'dev-confirm-modal', onClose: this.closeConfirmDialog, onConfirm: this.handleConfirm, onCancel: this.handleCancel }),
+          [h('span', '是否在本次会话中暂时移除Trigger?')],
         ),
       ])
   },

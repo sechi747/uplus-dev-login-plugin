@@ -128,7 +128,10 @@
   inset: 0;
   width: fit-content;
   height: fit-content;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   visibility: hidden;
   opacity: 0;
   transform: translateY(100px);
@@ -145,6 +148,17 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+
+.dev-login-dialog__footer {
+  width: 180px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.dev-login-dialog__footer button {
+  width: 60px;
 }
 
 .dev-login-dialog::backdrop {
