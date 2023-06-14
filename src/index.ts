@@ -1,4 +1,4 @@
 import { Trigger } from './components/Trigger'
-import { SimulateLoginPlugin } from './components/Container'
+import { ADMIN_GATEWAY } from './const'
 
-export { SimulateLoginPlugin, Trigger }
+export { Trigger, ADMIN_GATEWAY }
